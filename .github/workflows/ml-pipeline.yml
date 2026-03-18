@@ -1,35 +1,36 @@
+# .github/workflows/ml-pipeline.yml
 name: ML Model CI
 
 on:
   push:
-    branches-ignore:
+    branches-ignore:  # تشغيل على كل الفرع باستثناء main
       - main
   pull_request:
 
 jobs:
   validate-and-test:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Set up Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
 
-      - name: Install Dependencies
-        run: pip install -r requirements.txt
+    - name: Install Dependencies
+      run: pip install -r requirements.txt
 
-      - name: Linter Check
-        run: |
-          echo "Add linter commands here, e.g., flake8 ."
+    - name: Linter Check
+      run: echo "Skipping linter for now"  # placeholder
 
-      - name: Model Dry Test
-        run: python -c "import torch; print('Model environment ready!')"
+    - name: Model Dry Test
+      run: python -c "import torch; print('Model environment ready!')"
 
-      - name: Upload README as artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: project-doc
-          path: README.md
+    - name: Upload README as artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: project-doc
+        path: README.md
